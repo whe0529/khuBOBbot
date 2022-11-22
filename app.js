@@ -59,14 +59,14 @@ app.post('/hook', function (req, res) {
     var message = eventObj.message;
 
     const foodArr = [
-        {index : 1, name: "한식"}, 
-        {index : 2, name: "중식"}, 
-        {index : 3, name: "양식"}, 
-        {index : 4, name: "일식"}, 
-        {index : 5, name: "분식"}, 
-        {index : 6, name: "아시안"}, 
-        {index: 7, name: "패스트푸드"}, 
-        {index: 8, name: "학식"}
+        {index : 1, kr_name: "한식", en_name: 'Korean food'}, 
+        {index : 2, kr_name: "중식", en_name: 'Chinese food'}, 
+        {index : 3, kr_name: "양식", en_name: 'Western food'}, 
+        {index : 4, kr_name: "일식", en_name: 'Japanese food'}, 
+        {index : 5, kr_name: "분식", en_name: 'Snack food'}, 
+        {index : 6, kr_name: "아시안", en_name: 'Asian food'}, 
+        {index: 7, kr_name: "패스트푸드", en_name: 'Fast food'}, 
+        {index: 8, kr_name: "학식", en_name: 'School food'}
     ];
 
     // request log
@@ -75,31 +75,55 @@ app.post('/hook', function (req, res) {
     console.log('[request source] ', eventObj.source);
     console.log('[request message]', eventObj.message);
     
-    var food = foodArr.find(element => element.index ==  message.text || element.name == message.text);
+    var food = foodArr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text);
 
     console.log(food);
-
-    request.post(
-        {
-            url: REPLY_TARGET_URL,
-            headers: {
-                'Authorization': `Bearer ${TOKEN}`
-            },
-            json: {
-                "replyToken":eventObj.replyToken,
-                "messages":[
-                    {
-                    "type": "location",
-                    "title": "my location",
-                    "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
-                    "latitude": 35.687574,
-                    "longitude": 139.72922
-                    }
-                ]
-            }
-        },(error, response, body) => {
-            console.log(body)
-        });
+    if (food !=  undefined){
+        request.post(
+            {
+                url: REPLY_TARGET_URL,
+                headers: {
+                    'Authorization': `Bearer ${TOKEN}`
+                },
+                json: {
+                    "replyToken":eventObj.replyToken,
+                    "messages":[
+                        {
+                        "type": "location",
+                        "title": "my location",
+                        "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
+                        "latitude": 35.687574,
+                        "longitude": 139.72922
+                        }
+                    ]
+                }
+            },(error, response, body) => {
+                console.log(body)
+            });
+    }
+    else{
+        request.post(
+            {
+                url:REPLY_TARGET_URL,
+                headers:{
+                    'Authorization' :`Bearer ${TOKEN}`
+                },
+                json:{
+                    "replyToken": eventObj.replyToken,
+                    "messages":[
+                        {
+                            "type" : "text",
+                            "text":"음식을 다시 입력 해주세요."
+                        },
+                        {
+                            "type" : "text",
+                            "text":"Please enter the food again"
+                        }
+                    ]
+                }
+            }    
+        )
+    }
     
     res.sendStatus(200);
 });
