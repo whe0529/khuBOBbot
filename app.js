@@ -3,7 +3,6 @@ const request = require('request');
 const PUSH_TARGET_URL = 'https://api.line.me/v2/bot/message/push'
 const REPLY_TARGET_URL = 'https://api.line.me/v2/bot/message/reply'
 const TOKEN = 'Zd+BLpi6wLHMngB3EK74S1W7ApnAXuYZ86xGIi60JKrSW0xI0JyXlCzpunYxk9fxtOkH4y2/CNrb6K7WYldpXBwUkCKNIyEQ04AUpQKQ1EzS6C3qm6y5sBm0zs/Gmzn6n1v1jLfmSpxyLir7VqHk5wdB04t89/1O/w1cDnyilFU='
-const USER_ID = 'Uaa6ee8ae309532533aead588d062180d'
 const fs = require('fs');
 const path = require('path');
 const HTTPS = require('https');
@@ -14,43 +13,16 @@ const bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
-request.post(
-    {
-        url: PUSH_TARGET_URL,
-        headers: {
-            'Authorization': `Bearer ${TOKEN}`
-        },
-        json: {
-            "to": `${USER_ID}`,
-            "messages":[
-                {
-                    "type":"sticker",
-                    "packageId":"11538",
-                    "stickerId":"51626517"
-                },
-                {
-                    "type":"text",
-                    "text":"안녕하세요\n"+
-                    "음식추천 챗봇 쿠밥봇입니다\n\n"+
-                    "원하시는 메뉴를 골라주세요\n\n"+
-                    "1.한식2.중식3.양식\n"+
-                    "4.일식.5.분식6.아시안\n"+
-                    "7.패스트푸드8.학식"
-                },
-                {
-                    "type":"text",
-                    "text":"Welcome!!!\n" +
-                    "I'm a food recommendation chatbot, KHUBABBOT\n"+
-                    "Please choose the menu you want\n"+
-                    "1. Korean food 2. Chinese food 3. Western food\n"+
-                    "4. Japanese food 5. Snack food 6. Asian food\n"+
-                    "7. Fast food 8. School food\n"
-                }
-            ]
-        }
-    },(error, response, body) => {
-        console.log(body)
-    });
+const foodArr = [
+    {index : 1, kr_name: "한식", en_name: 'korean food'}, 
+    {index : 2, kr_name: "중식", en_name: 'chinese food'}, 
+    {index : 3, kr_name: "양식", en_name: 'western food'}, 
+    {index : 4, kr_name: "일식", en_name: 'japanese food'}, 
+    {index : 5, kr_name: "분식", en_name: 'snack food'}, 
+    {index : 6, kr_name: "아시안", en_name: 'asian food'}, 
+    {index: 7, kr_name: "패스트푸드", en_name: 'fast food'}, 
+    {index: 8, kr_name: "학식", en_name: 'school food'}
+];
 
 app.post('/hook', function (req, res) {
 
@@ -58,27 +30,15 @@ app.post('/hook', function (req, res) {
     var source = eventObj.source;
     var message = eventObj.message;
 
-    const foodArr = [
-        {index : 1, kr_name: "한식", en_name: 'Korean food'}, 
-        {index : 2, kr_name: "중식", en_name: 'Chinese food'}, 
-        {index : 3, kr_name: "양식", en_name: 'Western food'}, 
-        {index : 4, kr_name: "일식", en_name: 'Japanese food'}, 
-        {index : 5, kr_name: "분식", en_name: 'Snack food'}, 
-        {index : 6, kr_name: "아시안", en_name: 'Asian food'}, 
-        {index: 7, kr_name: "패스트푸드", en_name: 'Fast food'}, 
-        {index: 8, kr_name: "학식", en_name: 'School food'}
-    ];
-
     // request log
     console.log('======================', new Date() ,'======================');
     console.log('[request]', req.body);
     console.log('[request source] ', eventObj.source);
     console.log('[request message]', eventObj.message);
     
-    var food = foodArr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text);
-
-    console.log(food);
-    if (food !=  undefined){
+    var food = foodArr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text.toLowerCase());
+    
+    if (message.text == "안내" || message.text.toLowerCase() == "guide"){
         request.post(
             {
                 url: REPLY_TARGET_URL,
@@ -89,11 +49,50 @@ app.post('/hook', function (req, res) {
                     "replyToken":eventObj.replyToken,
                     "messages":[
                         {
-                        "type": "location",
-                        "title": "my location",
-                        "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
-                        "latitude": 35.687574,
-                        "longitude": 139.72922
+                            "type":"sticker",
+                            "packageId":"11538",
+                            "stickerId":"51626517"
+                        },
+                        {
+                            "type":"text",
+                            "text":"안녕하세요\n"+
+                            "음식추천 챗봇 쿠밥봇입니다\n\n"+
+                            "원하시는 메뉴를 골라주세요\n\n"+
+                            "1.한식2.중식3.양식\n"+
+                            "4.일식.5.분식6.아시안\n"+
+                            "7.패스트푸드8.학식"
+                        },
+                        {
+                            "type":"text",
+                            "text":"Welcome!!!\n" +
+                            "I'm a food recommendation chatbot, KHUBABBOT\n"+
+                            "Please choose the menu you want\n"+
+                            "1. Korean food 2. Chinese food 3. Western food\n"+
+                            "4. Japanese food 5. Snack food 6. Asian food\n"+
+                            "7. Fast food 8. School food\n"
+                        }
+                    ]
+                }
+            },(error, response, body) => {
+                console.log(body)
+            });
+        }
+    else if (food !=  undefined){
+        request.post(
+            {
+                url: REPLY_TARGET_URL,
+                headers: {
+                    Authorization: `Bearer ${TOKEN}`
+                },
+                json: {
+                    "replyToken":eventObj.replyToken,
+                    "messages":[
+                        {
+                            "type": "location",
+                            "title": "my location",
+                            "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
+                            "latitude": 37.5666805,
+                            "longitude": 126.9784147
                         }
                     ]
                 }
