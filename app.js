@@ -20,8 +20,8 @@ const foodArr = [
     {index : 4, kr_name: "일식", en_name: 'japanese food'}, 
     {index : 5, kr_name: "분식", en_name: 'snack food'}, 
     {index : 6, kr_name: "아시안", en_name: 'asian food'}, 
-    {index: 7, kr_name: "패스트푸드", en_name: 'fast food'}, 
-    {index: 8, kr_name: "학식", en_name: 'school food'}
+    {index : 7, kr_name: "패스트푸드", en_name: 'fast food'}, 
+    {index : 8, kr_name: "학식", en_name: 'school food'}
 ];
 
 app.post('/hook', function (req, res) {
@@ -92,7 +92,7 @@ app.post('/hook', function (req, res) {
                             "title": "my location",
                             "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
                             "latitude": 37.5666805,
-                            "longitude": 126.9784147
+                            "longitude": 126.9784147139
                         }
                     ]
                 }
