@@ -2,7 +2,7 @@
 
 ### Built With
 * [Node.js](https://nodejs.org/)
-* [Express](https://expressjs.com/)g
+* [Express](https://expressjs.com/)
 * [mysql](https://www.mysql.com/)
 * [Line](https://developers.line.biz/en/)
 
