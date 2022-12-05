@@ -1,5 +1,5 @@
-## To be responsible for your meal
-### khuBOBbot who will be responsible for your satisfying meal
+## khuBOBbot
+###  who will be responsible for your satisfying meal
 
 ### Built With
 * [Node.js](https://nodejs.org/)
