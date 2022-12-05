@@ -1,4 +1,51 @@
-# KHUBOBBOT
+## About The Project
+
+### Built With
+* [Node.js](https://nodejs.org/)
+* [Express](https://expressjs.com/)g
+* [mysql](https://www.mysql.com/)
+* [Line](https://developers.line.biz/en/)
+
+## Project Architecture
+
+## Getting Started : Developers
+
+## Getting Started : Users
+유저의 사용 과정을 설명합니다
+
+### Prerequisites
+* Line
+라인 앱 설치가 선행되어야 합니다.
+
+### Start Guide
+라인 친구 추가 메뉴에서 QR코드로 친구 추가 <br><br>
+![QR코드](https://qr-official.line.me/gs/M_220xtmcj_GW.png)
+
+## Usage
+
+## Roadmap
+
+## Contributing
+
+더 나은 것을 위해 기여에 대한 절차를 안내드립니다.
+
+1. 프로젝트 Fork.
+2. 사용할 브랜치를 추가로 만드시킬 바랍니다. (`git checkout -b feature/AmazingFeature`)
+3. Commit (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+## Contact
+조장 
+    우하은 -
+조원 
+    김현원 -  khw7385@khu.ac.kr
+    김윤지 -
+    박찬미 - 
+    백지원 -
+    임성건 -
 
 ## How to meet KHUBOBBOT
 ![QR코드](https://qr-official.line.me/gs/M_220xtmcj_GW.png)
