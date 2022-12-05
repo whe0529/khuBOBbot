@@ -19,7 +19,8 @@
 
 ### Start Guide
 라인 친구 추가 메뉴에서 QR코드로 친구 추가 <br><br>
-![QR코드](https://qr-official.line.me/gs/M_220xtmcj_GW.png)
+
+![QR코드](image/QR.png)<br><br>
 
 ## Usage
 
@@ -39,13 +40,12 @@
 
 ## Contact
 조장 
-    우하은 -
+* 우하은 -
 조원 
-    김현원 -  khw7385@khu.ac.kr
-    김윤지 -
-    박찬미 - 
-    백지원 -
-    임성건 -
+* 김윤지 -  
+* 김현원 -  khw7385@khu.ac.kr
+* 박찬미 - 
+* 백지원 -
+* 임성건 -
 
 ## How to meet KHUBOBBOT
-![QR코드](https://qr-official.line.me/gs/M_220xtmcj_GW.png)
