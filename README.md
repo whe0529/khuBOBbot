@@ -11,9 +11,13 @@
 <ol>
 	<li><a href="#project-architecture">Project Architecture</a></li>
 	<li><a href="#getting-started--developers">Getting Started : Developers</a></li>
-	<li></li>
-	<li></li>
-	<li></li>
+	<li><a href="#getting-started--users">Getting Started : Uers</a></li>
+	<li><a href="#usage">Usage</a></li>
+	<li><a href="#roadmap">Roadmap</a></li>
+	<li><a href="#contributing">Contributing</a></li>
+	<li><a href="#license">License</a></li>
+	<li><a href="#contact">Contact</a></li>
+	<li><a href="#how-to-meet-khubobbot">How to meet KHUBOBBOT</a></li>
 </ol>
 
 ## Project Architecture
