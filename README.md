@@ -10,7 +10,7 @@
 ### Contents
 <ol>
 	<li><a href="#project-architecture">Project Architecture</a></li>
-	<li><a href="#getting-started-\:-developers">Getting Started : Developers</a></li>
+	<li><a href="#getting-started-developers">Getting Started : Developers</a></li>
 	<li></li>
 	<li></li>
 	<li></li>
