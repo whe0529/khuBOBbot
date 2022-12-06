@@ -12,20 +12,36 @@ const sslport = 23023;
 const bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
+let language = ""
+let guideMessageText = {};
 
-const foodArr = [
-    {index : 1, kr_name: "한식", en_name: 'korean food'}, 
-    {index : 2, kr_name: "중식", en_name: 'chinese food'}, 
-    {index : 3, kr_name: "양식", en_name: 'western food'}, 
-    {index : 4, kr_name: "일식", en_name: 'japanese food'}, 
-    {index : 5, kr_name: "분식", en_name: 'snack food'}, 
-    {index : 6, kr_name: "아시안", en_name: 'asian food'}, 
+
+const food_menu_arr = [
+    {index : 1, kr_name: "한식", en_name: 'korean'}, 
+    {index : 2, kr_name: "중식", en_name: 'chinese'}, 
+    {index : 3, kr_name: "양식", en_name: 'western'}, 
+    {index : 4, kr_name: "일식", en_name: 'japanese'}, 
+    {index : 5, kr_name: "분식", en_name: 'snack'}, 
+    {index : 6, kr_name: "아시안", en_name: 'asian'}, 
     {index : 7, kr_name: "패스트푸드", en_name: 'fast food'}, 
-    {index : 8, kr_name: "학식", en_name: 'school food'}
+    {index : 8, kr_name: "학식", en_name: 'school food'},
+    {index : 9, kr_name: "카페", en_name : 'cafe'}
 ];
+const message_object = {
+    request_error :[
+        "음식을 다시 입력 해주세요.",
+        "Please enter the food again"
+    ],
+    food_name_version : [
+        "kr_name",
+        "en_name"
+    ]
+}
 
-app.post('/hook', function (req, res) {
 
+let language_index = 0;
+
+app.post('/hook', function (req, res){
     var eventObj = req.body.events[0];
     var source = eventObj.source;
     var message = eventObj.message;
@@ -36,9 +52,14 @@ app.post('/hook', function (req, res) {
     console.log('[request source] ', eventObj.source);
     console.log('[request message]', eventObj.message);
     
-    var food = foodArr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text.toLowerCase());
+    language = detect_language(message.text);
+    if (language == "Koeran") language_index = 0;
+    else if (language == "English") language_index = 1;
+
+
+    var food = food_menu_arr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text.toLowerCase());
     
-    if (message.text == "안내" || message.text.toLowerCase() == "guide"){
+    if (message.text == "메뉴" || message.text.toLowerCase() == "menu"){    
         request.post(
             {
                 url: REPLY_TARGET_URL,
@@ -46,37 +67,57 @@ app.post('/hook', function (req, res) {
                     'Authorization': `Bearer ${TOKEN}`
                 },
                 json: {
-                    "replyToken":eventObj.replyToken,
+                    "replyToken": eventObj.replyToken,
                     "messages":[
                         {
-                            "type":"sticker",
-                            "packageId":"11538",
-                            "stickerId":"51626517"
-                        },
-                        {
-                            "type":"text",
-                            "text":"안녕하세요\n"+
-                            "음식추천 챗봇 쿠밥봇입니다\n\n"+
-                            "원하시는 메뉴를 골라주세요\n\n"+
-                            "1.한식2.중식3.양식\n"+
-                            "4.일식.5.분식6.아시안\n"+
-                            "7.패스트푸드8.학식"
-                        },
-                        {
-                            "type":"text",
-                            "text":"Welcome!!!\n" +
-                            "I'm a food recommendation chatbot, KHUBABBOT\n"+
-                            "Please choose the menu you want\n"+
-                            "1. Korean food 2. Chinese food 3. Western food\n"+
-                            "4. Japanese food 5. Snack food 6. Asian food\n"+
-                            "7. Fast food 8. School food\n"
+                            "type": "flex",
+                            "altText": "this is a flex message",
+                            "contents": {
+                                "type": "bubble",
+                                "body": {
+                                    "type": "box",
+                                    "layout": "vertical",
+                                    "contents": [
+                                        {
+                                            "type":"box",
+                                            "layout":"horizontal",
+                                            "contents":[
+                                                food_row_layout(food_menu_arr[0][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[1][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[2][message_object.food_name_version[language_index]])
+                                            ]
+                                        },
+                                        {
+                                            "type":"box",
+                                            "layout":"horizontal",
+                                            "contents":[
+                                                food_row_layout(food_menu_arr[3][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[4][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[5][message_object.food_name_version[language_index]])    
+                                            ]
+                                        },
+                                        {
+                                            "type":"box",
+                                            "layout":"horizontal",
+                                            "contents":[
+                                                food_row_layout(food_menu_arr[6][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[7][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[8][message_object.food_name_version[language_index]])
+                                            ]
+                                    }
+                                    ]
+                                  }
+                              }
                         }
+                            
+                          
                     ]
-                }
-            },(error, response, body) => {
-                console.log(body)
-            });
-        }
+                  }
+            }, (error, response, body) => {
+                console.log(body);
+            }
+        )
+    } 
     else if (food !=  undefined){
         request.post(
             {
@@ -112,12 +153,8 @@ app.post('/hook', function (req, res) {
                     "messages":[
                         {
                             "type" : "text",
-                            "text":"음식을 다시 입력 해주세요."
+                            "text": message_object.request_error[language_index]
                         },
-                        {
-                            "type" : "text",
-                            "text":"Please enter the food again"
-                        }
                     ]
                 }
             }    
@@ -126,6 +163,28 @@ app.post('/hook', function (req, res) {
     
     res.sendStatus(200);
 });
+
+function detect_language(message){
+    if (message.match(/^[a-z|A-Z]+$/)){
+        return "English"
+    }
+    else if (message.match(/^[가-힣]+$/)){
+        return "Korean"
+    }
+}
+
+function food_row_layout(food){
+    return {
+        "type": "button",
+        "action": {
+        "type": "message",
+        "label": food,
+        "text": food
+        },
+        "style": "secondary",
+        "color": "#EEEEEE"
+    }
+}
 
 try {
     const option = {
