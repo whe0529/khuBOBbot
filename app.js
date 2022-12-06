@@ -82,27 +82,27 @@ app.post('/hook', function (req, res){
                                             "type":"box",
                                             "layout":"horizontal",
                                             "contents":[
-                                                food_layout_row(food_menu_arr[0][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[1][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[2][message_object.food_name_version[language_index]])
+                                                food_row_layout(food_menu_arr[0][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[1][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[2][message_object.food_name_version[language_index]])
                                             ]
                                         },
                                         {
                                             "type":"box",
                                             "layout":"horizontal",
                                             "contents":[
-                                                food_layout_row(food_menu_arr[3][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[4][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[5][message_object.food_name_version[language_index]])    
+                                                food_row_layout(food_menu_arr[3][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[4][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[5][message_object.food_name_version[language_index]])    
                                             ]
                                         },
                                         {
                                             "type":"box",
                                             "layout":"horizontal",
                                             "contents":[
-                                                food_layout_row(food_menu_arr[6][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[7][message_object.food_name_version[language_index]]),
-                                                food_layout_row(food_menu_arr[8][message_object.food_name_version[language_index]])
+                                                food_row_layout(food_menu_arr[6][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[7][message_object.food_name_version[language_index]]),
+                                                food_row_layout(food_menu_arr[8][message_object.food_name_version[language_index]])
                                             ]
                                     }
                                     ]
