@@ -43,7 +43,7 @@
 ### 조장 
 * 우하은 -
 ### 조원 
-* 김윤지 -  
+* 김윤지 -  rmatlr0112@khu.ac.kr
 * 김현원 -  khw7385@khu.ac.kr
 * 박찬미 - 
 * 백지원 - wldnjsl2001@khu.ac.kr
