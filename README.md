@@ -21,6 +21,10 @@
 </ol>
 
 ## Project Architecture
+<div align="center">
+	<img src="![오픈소스 drawio](https://user-images.githubusercontent.com/83260809/206208258-81a7f740-3d1a-4acf-b622-1177479a8947.png")
+>
+</div>
 
 ## Getting Started : Developers
 
