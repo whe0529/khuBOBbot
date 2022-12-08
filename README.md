@@ -57,12 +57,12 @@
 
 ## Contact
 ### 조장 
-* 우하은 -
+* 우하은 -  suaveh97@khu.ac.kr
 ### 조원 
 * 김윤지 -  rmatlr0112@khu.ac.kr
 * 김현원 -  khw7385@khu.ac.kr
-* 박찬미 - 
-* 백지원 - wldnjsl2001@khu.ac.kr
-* 임성건 -
+* 박찬미 -  astnv31@khu.ac.kr
+* 백지원 -  wldnjsl2001@khu.ac.kr
+* 임성건 -  happykhu0715@khu.ac.kr 
 
 ## How to meet KHUBOBBOT
