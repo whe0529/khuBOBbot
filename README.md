@@ -1,8 +1,9 @@
-## About The Project
+## khuBOBbot
+###  who will be responsible for your satisfying meal
 
 ### Built With
 * [Node.js](https://nodejs.org/)
-* [Express](https://expressjs.com/)g
+* [Express](https://expressjs.com/)
 * [mysql](https://www.mysql.com/)
 * [Line](https://developers.line.biz/en/)
 
@@ -45,7 +46,7 @@
 * 김윤지 -  
 * 김현원 -  khw7385@khu.ac.kr
 * 박찬미 - 
-* 백지원 -
+* 백지원 - wldnjsl2001@khu.ac.kr
 * 임성건 -
 
 ## How to meet KHUBOBBOT
