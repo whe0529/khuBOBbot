@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 let language = ""
 let guideMessageText = {};
 
-
 const food_menu_arr = [
     {index : 1, kr_name: "한식", en_name: 'korean'}, 
     {index : 2, kr_name: "중식", en_name: 'chinese'}, 
@@ -60,105 +59,13 @@ app.post('/hook', function (req, res){
     var food = food_menu_arr.find(element => element.index ==  message.text || element.kr_name == message.text || element.en_name == message.text.toLowerCase());
     
     if (message.text == "메뉴" || message.text.toLowerCase() == "menu"){    
-        request.post(
-            {
-                url: REPLY_TARGET_URL,
-                headers: {
-                    'Authorization': `Bearer ${TOKEN}`
-                },
-                json: {
-                    "replyToken": eventObj.replyToken,
-                    "messages":[
-                        {
-                            "type": "flex",
-                            "altText": "this is a flex message",
-                            "contents": {
-                                "type": "bubble",
-                                "body": {
-                                    "type": "box",
-                                    "layout": "vertical",
-                                    "contents": [
-                                        {
-                                            "type":"box",
-                                            "layout":"horizontal",
-                                            "contents":[
-                                                food_row_layout(food_menu_arr[0][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[1][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[2][message_object.food_name_version[language_index]])
-                                            ]
-                                        },
-                                        {
-                                            "type":"box",
-                                            "layout":"horizontal",
-                                            "contents":[
-                                                food_row_layout(food_menu_arr[3][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[4][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[5][message_object.food_name_version[language_index]])    
-                                            ]
-                                        },
-                                        {
-                                            "type":"box",
-                                            "layout":"horizontal",
-                                            "contents":[
-                                                food_row_layout(food_menu_arr[6][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[7][message_object.food_name_version[language_index]]),
-                                                food_row_layout(food_menu_arr[8][message_object.food_name_version[language_index]])
-                                            ]
-                                    }
-                                    ]
-                                  }
-                              }
-                        }
-                            
-                          
-                    ]
-                  }
-            }, (error, response, body) => {
-                console.log(body);
-            }
-        )
+        send_menu(eventObj, language_index);
     } 
     else if (food !=  undefined){
-        request.post(
-            {
-                url: REPLY_TARGET_URL,
-                headers: {
-                    Authorization: `Bearer ${TOKEN}`
-                },
-                json: {
-                    "replyToken":eventObj.replyToken,
-                    "messages":[
-                        {
-                            "type": "location",
-                            "title": "my location",
-                            "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
-                            "latitude": 37.5666805,
-                            "longitude": 126.9784147139
-                        }
-                    ]
-                }
-            },(error, response, body) => {
-                console.log(body)
-            });
+        send_restaurant(eventObj, language_index);
     }
     else{
-        request.post(
-            {
-                url:REPLY_TARGET_URL,
-                headers:{
-                    'Authorization' :`Bearer ${TOKEN}`
-                },
-                json:{
-                    "replyToken": eventObj.replyToken,
-                    "messages":[
-                        {
-                            "type" : "text",
-                            "text": message_object.request_error[language_index]
-                        },
-                    ]
-                }
-            }    
-        )
+        send_error_message(eventObj, language_index);
     }
     
     res.sendStatus(200);
@@ -184,6 +91,166 @@ function food_row_layout(food){
         "style": "secondary",
         "color": "#EEEEEE"
     }
+}
+function send_menu(eventObj, language_index){
+    request.post(
+        {
+            url: REPLY_TARGET_URL,
+            headers: {
+                'Authorization': `Bearer ${TOKEN}`
+            },
+            json: {
+                "replyToken": eventObj.replyToken,
+                "messages":[
+                    {
+                        "type": "flex",
+                        "altText": "this is a flex message",
+                        "contents": {
+                            "type": "bubble",
+                            "body": {
+                                "type": "box",
+                                "layout": "vertical",
+                                "contents": [
+                                    {
+                                        "type":"box",
+                                        "layout":"horizontal",
+                                        "contents":[
+                                            food_row_layout(food_menu_arr[0][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[1][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[2][message_object.food_name_version[language_index]])
+                                        ]
+                                    },
+                                    {
+                                        "type":"box",
+                                        "layout":"horizontal",
+                                        "contents":[
+                                            food_row_layout(food_menu_arr[3][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[4][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[5][message_object.food_name_version[language_index]])    
+                                        ]
+                                    },
+                                    {
+                                        "type":"box",
+                                        "layout":"horizontal",
+                                        "contents":[
+                                            food_row_layout(food_menu_arr[6][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[7][message_object.food_name_version[language_index]]),
+                                            food_row_layout(food_menu_arr[8][message_object.food_name_version[language_index]])
+                                        ]
+                                }
+                                ]
+                              }
+                          }
+                    }
+                        
+                      
+                ]
+              }
+        }, (error, response, body) => {
+            console.log(body);
+        }
+    )
+}
+
+function send_restaurant(eventObj, language_index){
+    request.post(
+        {
+            url: REPLY_TARGET_URL,
+            headers: {
+                Authorization: `Bearer ${TOKEN}`
+            },
+            json: {
+                "replyToken":eventObj.replyToken,
+                "messages":[
+                    {
+                        "type": "template",
+                        "altText": "this is a carousel template",
+                        "template": {
+                          "type": "carousel",
+                          "columns": [
+                            {
+                              "title": "카페서천",
+                              "text": "카페서천 is ...",
+                              "actions": [
+                                {
+                                  "type": "message",
+                                  "label": "press",
+                                  "text":"카페서천"
+                                }
+                              ]
+                            },
+                            {
+                                "title": "카페서천",
+                                "text": "카페서천 is ...",
+                                "actions": [
+                                  {
+                                    "type": "message",
+                                    "label": "press",
+                                    "text":"카페서천"
+                                  }
+                                ]
+                              },
+                              {
+                                "title": "카페서천",
+                                "text": "카페서천 is ...",
+                                "actions": [
+                                  {
+                                    "type": "message",
+                                    "label": "press",
+                                    "text":"카페서천"
+                                  }
+                                ]
+                              },
+                            ]
+                        }
+                    }
+                ]
+            }
+        },(error, response, body) => {
+            console.log(body)
+        });
+}
+
+function send_map(eventObj, language_index){
+    request.post({
+        url: REPLY_TARGET_URL,
+            headers: {
+                Authorization: `Bearer ${TOKEN}`
+            },
+            json: {
+                "replyToken":eventObj.replyToken,
+                "messages":[
+                    {
+                        "type": "location",
+                        "title": "my location",
+                        "address": "1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
+                        "latitude": 37.5666805,
+                        "longitude": 126.9784147139
+                    }
+                ]
+            },
+        },(error, response, body) => {
+                console.log(body)
+        })
+}
+function send_error_message(eventObj, language_index){
+    request.post(
+        {
+            url:REPLY_TARGET_URL,
+            headers:{
+                'Authorization' :`Bearer ${TOKEN}`
+            },
+            json:{
+                "replyToken": eventObj.replyToken,
+                "messages":[
+                    {
+                        "type" : "text",
+                        "text": message_object.request_error[language_index]
+                    },
+                ]
+            }
+        }    
+    )
 }
 
 try {
