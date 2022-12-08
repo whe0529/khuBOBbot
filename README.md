@@ -1,4 +1,4 @@
-## khuBOBbot
+## KHUBOB-BOT
 ###  who will be responsible for your satisfying meal
 
 ### Built With
@@ -6,6 +6,7 @@
 * [Express](https://expressjs.com/)
 * [mysql](https://www.mysql.com/)
 * [Line](https://developers.line.biz/en/)
+* [AWS](https://aws.amazon.com/ko/)
 
 ### Contents
 <ol>
