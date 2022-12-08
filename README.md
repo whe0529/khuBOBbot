@@ -29,7 +29,14 @@
 ## Getting Started : Developers
 
 ## Getting Started : Users
-유저의 사용 과정을 설명합니다
+유저의 사용 과정을 설명합니다.
+
+사용자는 라인 앱에서 QR코드로 '친구 추가' 합니다.
+KHUBOBBOT과 대화를 시작합니다.
+대화창에 '메뉴'를 입력합니다.
+<div align="center">
+	<img src="https://user-images>
+
 
 ### Prerequisites
 * Line
